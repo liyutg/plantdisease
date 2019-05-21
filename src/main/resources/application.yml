@@ -12,7 +12,6 @@ server:
 spring:
   application:
     name: plantdisease
-
   datasource:
     loginUsername: liyutg
     loginPassword: l1206199288
