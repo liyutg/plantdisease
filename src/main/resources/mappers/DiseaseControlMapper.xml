@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liyutg.plant.dao.DiseaseControlMapper" >
+  <resultMap id="BaseResultMap" type="com.liyutg.plant.entity.DiseaseControl" >
+    <constructor >
+      <idArg column="message_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="type01" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type02" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type03" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="type04" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="article_message" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="data" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="image_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="article_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="introduction_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="introduction_img_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="introduction_date" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="introduction_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    message_id, type01, type02, type03, type04, title, article_message, data, image_url, 
+    article_text, introduction_title, introduction_img_url, introduction_date, introduction_text
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liyutg.plant.entity.DiseaseControlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from disease_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from disease_control
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from disease_control
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liyutg.plant.entity.DiseaseControlExample" >
+    delete from disease_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liyutg.plant.entity.DiseaseControl" >
+    insert into disease_control (message_id, type01, type02, 
+      type03, type04, title, 
+      article_message, data, image_url, 
+      article_text, introduction_title, introduction_img_url, 
+      introduction_date, introduction_text)
+    values (#{messageId,jdbcType=INTEGER}, #{type01,jdbcType=VARCHAR}, #{type02,jdbcType=VARCHAR}, 
+      #{type03,jdbcType=VARCHAR}, #{type04,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{articleMessage,jdbcType=VARCHAR}, #{data,jdbcType=TIMESTAMP}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{articleText,jdbcType=VARCHAR}, #{introductionTitle,jdbcType=VARCHAR}, #{introductionImgUrl,jdbcType=VARCHAR}, 
+      #{introductionDate,jdbcType=VARCHAR}, #{introductionText,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liyutg.plant.entity.DiseaseControl" >
+    insert into disease_control
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="type01 != null" >
+        type01,
+      </if>
+      <if test="type02 != null" >
+        type02,
+      </if>
+      <if test="type03 != null" >
+        type03,
+      </if>
+      <if test="type04 != null" >
+        type04,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="articleMessage != null" >
+        article_message,
+      </if>
+      <if test="data != null" >
+        data,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="articleText != null" >
+        article_text,
+      </if>
+      <if test="introductionTitle != null" >
+        introduction_title,
+      </if>
+      <if test="introductionImgUrl != null" >
+        introduction_img_url,
+      </if>
+      <if test="introductionDate != null" >
+        introduction_date,
+      </if>
+      <if test="introductionText != null" >
+        introduction_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="type01 != null" >
+        #{type01,jdbcType=VARCHAR},
+      </if>
+      <if test="type02 != null" >
+        #{type02,jdbcType=VARCHAR},
+      </if>
+      <if test="type03 != null" >
+        #{type03,jdbcType=VARCHAR},
+      </if>
+      <if test="type04 != null" >
+        #{type04,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleMessage != null" >
+        #{articleMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleText != null" >
+        #{articleText,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionTitle != null" >
+        #{introductionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionImgUrl != null" >
+        #{introductionImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionDate != null" >
+        #{introductionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionText != null" >
+        #{introductionText,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liyutg.plant.entity.DiseaseControlExample" resultType="java.lang.Integer" >
+    select count(*) from disease_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByKeyWord" parameterType="string"  resultType="com.liyutg.plant.entity.DiseaseControl">
+    <bind name="pattern" value="'%' + keyword + '%'" ></bind>
+
+    SELECT
+    *
+    FROM
+    disease_control
+    WHERE
+    1=1
+    <if test="keyword!=null and keyword!=''">
+      <bind name="pattern" value="'%' + keyword + '%'" ></bind>
+      and title LIKE #{pattern}
+    </if>
+
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update disease_control
+    <set >
+      <if test="record.messageId != null" >
+        message_id = #{record.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type01 != null" >
+        type01 = #{record.type01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type02 != null" >
+        type02 = #{record.type02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type03 != null" >
+        type03 = #{record.type03,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type04 != null" >
+        type04 = #{record.type04,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleMessage != null" >
+        article_message = #{record.articleMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data != null" >
+        data = #{record.data,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.imageUrl != null" >
+        image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleText != null" >
+        article_text = #{record.articleText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionTitle != null" >
+        introduction_title = #{record.introductionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionImgUrl != null" >
+        introduction_img_url = #{record.introductionImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionDate != null" >
+        introduction_date = #{record.introductionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introductionText != null" >
+        introduction_text = #{record.introductionText,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update disease_control
+    set message_id = #{record.messageId,jdbcType=INTEGER},
+      type01 = #{record.type01,jdbcType=VARCHAR},
+      type02 = #{record.type02,jdbcType=VARCHAR},
+      type03 = #{record.type03,jdbcType=VARCHAR},
+      type04 = #{record.type04,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      article_message = #{record.articleMessage,jdbcType=VARCHAR},
+      data = #{record.data,jdbcType=TIMESTAMP},
+      image_url = #{record.imageUrl,jdbcType=VARCHAR},
+      article_text = #{record.articleText,jdbcType=VARCHAR},
+      introduction_title = #{record.introductionTitle,jdbcType=VARCHAR},
+      introduction_img_url = #{record.introductionImgUrl,jdbcType=VARCHAR},
+      introduction_date = #{record.introductionDate,jdbcType=VARCHAR},
+      introduction_text = #{record.introductionText,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liyutg.plant.entity.DiseaseControl" >
+    update disease_control
+    <set >
+      <if test="type01 != null" >
+        type01 = #{type01,jdbcType=VARCHAR},
+      </if>
+      <if test="type02 != null" >
+        type02 = #{type02,jdbcType=VARCHAR},
+      </if>
+      <if test="type03 != null" >
+        type03 = #{type03,jdbcType=VARCHAR},
+      </if>
+      <if test="type04 != null" >
+        type04 = #{type04,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="articleMessage != null" >
+        article_message = #{articleMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        data = #{data,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="articleText != null" >
+        article_text = #{articleText,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionTitle != null" >
+        introduction_title = #{introductionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionImgUrl != null" >
+        introduction_img_url = #{introductionImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionDate != null" >
+        introduction_date = #{introductionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="introductionText != null" >
+        introduction_text = #{introductionText,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liyutg.plant.entity.DiseaseControl" >
+    update disease_control
+    set type01 = #{type01,jdbcType=VARCHAR},
+      type02 = #{type02,jdbcType=VARCHAR},
+      type03 = #{type03,jdbcType=VARCHAR},
+      type04 = #{type04,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      article_message = #{articleMessage,jdbcType=VARCHAR},
+      data = #{data,jdbcType=TIMESTAMP},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      article_text = #{articleText,jdbcType=VARCHAR},
+      introduction_title = #{introductionTitle,jdbcType=VARCHAR},
+      introduction_img_url = #{introductionImgUrl,jdbcType=VARCHAR},
+      introduction_date = #{introductionDate,jdbcType=VARCHAR},
+      introduction_text = #{introductionText,jdbcType=VARCHAR}
+    where message_id = #{messageId,jdbcType=INTEGER}
+  </update>
+</mapper>
